@@ -29,7 +29,12 @@ GET /documents/{id}
 ```
 POST /documents
 ```
-
+```
+PUT /documents/{id}
+```
+```
+DELETE /documents/{id}
+```
 **Body:**
 
 ```json
@@ -38,10 +43,4 @@ POST /documents
   "description": "Sample description",
   "tags": ["work"]
 }
-```
-```
-PUT /documents/{id}
-```
-```
-DELETE /documents/{id}
 ```
