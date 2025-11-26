@@ -5,8 +5,12 @@ var app = builder.Build();
 var documents = new List<Document>();
 var nextId = 1;
 
-// GET all documents
-app.MapGet("/documents", () => documents);
+// GET all documents or search by tag
+app.MapGet("/documents", (string? tag) =>
+{
+    if (string.IsNullOrEmpty(tag)) return documents;
+    return documents.Where(d => d.Tags.Contains(tag, StringComparer.OrdinalIgnoreCase));
+});
 
 // GET document by ID
 app.MapGet("/documents/{id}", (int id) =>
