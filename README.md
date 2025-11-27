@@ -1,7 +1,7 @@
 # **Document Manager API**
 
 A simple C# Web API built with ASP.NET Core to manage simple document metadata.
-This project demonstrates familiarity with C#, minimal API routing, RESTful design, and in-memory data storage.
+This project demonstrates familiarity with C#, minimal API routing, and RESTful design.
 
 ## **Run the Project**
 
