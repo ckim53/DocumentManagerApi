@@ -1,89 +1,35 @@
-# **Document Manager API**
+# Document Manager API
 
-A simple C# Web API built with ASP.NET Core to manage document metadata.
-This project demonstrates familiarity with C#, minimal API routing, and RESTful design.
+A RESTful API built with C# and ASP.NET Core for managing document metadata.
+Demonstrates .NET minimal APIs, input validation with data annotations, and standard REST design.
 
-## **Run the Project**
-
-```bash
-dotnet run
-```
-
-The API will start on:
-
-```
-http://localhost:5000
-```
-
-## **Endpoints**
-
-```
-GET /documents
-```
-```
-GET /documents?tag=tagname
-```
-```
-GET /documents/{id}
-```
-```
-POST /documents
-```
-```
-PUT /documents/{id}
-```
-```
-DELETE /documents/{id}
-```
-**Body:**
-
-<<<<<<< HEAD
-A lightweight C# Web API built with ASP.NET Core to manage simple document metadata.
-This project demonstrates familiarity with C#, minimal API routing, RESTful design, and in-memory data storage.
-
-=======
-A simple C# Web API built with ASP.NET Core to manage document metadata.
-This project demonstrates familiarity with C#, minimal API routing, and RESTful design.
-
-## **Run the Project**
+## Run
 
 ```bash
 dotnet run
 ```
 
-The API will start on:
+API runs at `http://localhost:5000`
 
-```
-http://localhost:5000
-```
+## Endpoints
 
-## **Endpoints**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/documents` | List all documents |
+| `GET` | `/documents?tag=work` | Filter by tag |
+| `GET` | `/documents/{id}` | Get by ID |
+| `POST` | `/documents` | Create a document |
+| `PUT` | `/documents/{id}` | Update a document |
+| `DELETE` | `/documents/{id}` | Delete a document |
 
-```
-GET /documents
-```
-```
-GET /documents?tag=tagname
-```
-```
-GET /documents/{id}
-```
-```
-POST /documents
-```
-```
-PUT /documents/{id}
-```
-```
-DELETE /documents/{id}
-```
-**Body:**
+## Request Body
 
 ```json
 {
-  "title": "My Doc",
-  "description": "Sample description",
-  "tags": ["work"]
+  "title": "Q3 Report",
+  "description": "Quarterly summary",
+  "tags": ["finance", "internal"]
 }
 ```
->>>>>>> 223843e2b9cf775ef082587f82e3628d1b449c77
+
+`title` is required (max 200 chars). Invalid requests return `400` with field-level errors.
