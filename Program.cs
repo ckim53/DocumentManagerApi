@@ -3,9 +3,11 @@ using DocumentManagerApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddProblemDetails();
+builder.Services.AddCors();
 
 var app = builder.Build();
 app.UseExceptionHandler();
+app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 var documents = new List<Document>();
 var nextId = 1;
