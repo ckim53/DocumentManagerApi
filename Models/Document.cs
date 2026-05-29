@@ -15,6 +15,9 @@ public class Document
 
     public List<string> Tags { get; set; } = [];
 
+    public string? FileUrl { get; set; }
+    public string? FileName { get; set; }
+
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
 }
