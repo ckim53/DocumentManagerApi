@@ -7,6 +7,7 @@ obj/
 .vs/
 .vscode/
 .idea/
+requests.http
 
 # Environment / secrets
 .env

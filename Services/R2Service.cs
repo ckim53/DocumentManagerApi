@@ -5,11 +5,11 @@ namespace DocumentManagerApi.Services;
 
 public class R2Service
 {
-    private readonly IAmazonS3 _s3;
-    private readonly string _bucket;
-    private readonly string _publicUrl;
+    private readonly IAmazonS3? _s3;
+    private readonly string? _bucket;
+    private readonly string? _publicUrl;
 
-    public R2Service(IAmazonS3 s3, IConfiguration config)
+    public R2Service(IConfiguration config, IAmazonS3 s3 = null)
     {
         _s3 = s3;
         _bucket = config["R2:Bucket"]!;
@@ -18,6 +18,7 @@ public class R2Service
 
     public async Task<(string fileUrl, string fileName)> UploadAsync(IFormFile file)
     {
+        if (_s3 is null) throw new InvalidOperationException("R2 is not configured.");
         var extension = Path.GetExtension(file.FileName);
         var key = $"{Guid.NewGuid()}{extension}";
 
@@ -39,6 +40,7 @@ public class R2Service
 
     public async Task DeleteAsync(string fileUrl)
     {
+        if (_s3 is null) return;
         var key = fileUrl.Split('/').Last();
 
         var request = new DeleteObjectRequest
