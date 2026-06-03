@@ -32,31 +32,36 @@ builder.Services.AddDbContext<DocumentDbContext>(options =>
 
 // Cloudflare R2
 var r2AccessKey = Environment.GetEnvironmentVariable("R2_ACCESS_KEY")
-    ?? builder.Configuration["R2:AccessKey"]!;
+    ?? builder.Configuration["R2:AccessKey"];
 var r2SecretKey = Environment.GetEnvironmentVariable("R2_SECRET_KEY")
-    ?? builder.Configuration["R2:SecretKey"]!;
+    ?? builder.Configuration["R2:SecretKey"];
 var r2Endpoint = Environment.GetEnvironmentVariable("R2_ENDPOINT")
-    ?? builder.Configuration["R2:Endpoint"]!;
+    ?? builder.Configuration["R2:Endpoint"];
 
-var s3Config = new AmazonS3Config
+if (!string.IsNullOrEmpty(r2Endpoint))
 {
-    ServiceURL = r2Endpoint,
-    ForcePathStyle = true
-};
+    var s3Config = new AmazonS3Config
+    {
+        ServiceURL = r2Endpoint,
+        ForcePathStyle = true
+    };
 
-var s3Client = new AmazonS3Client(
-    new BasicAWSCredentials(r2AccessKey, r2SecretKey),
-    s3Config
-);
+    var s3Client = new AmazonS3Client(
+        new BasicAWSCredentials(r2AccessKey!, r2SecretKey!),
+        s3Config
+    );
 
-builder.Services.AddSingleton<IAmazonS3>(s3Client);
+    builder.Services.AddSingleton<IAmazonS3>(s3Client);
+}
+
 builder.Services.AddScoped<R2Service>();
 
 var app = builder.Build();
 
-// Auto-migrate
-using (var scope = app.Services.CreateScope())
+// Auto-migrate - runs on Railway where DATABASE_URL is set
+if (!string.IsNullOrEmpty(databaseUrl))
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<DocumentDbContext>();
     db.Database.Migrate();
 }
