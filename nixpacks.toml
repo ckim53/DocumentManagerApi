@@ -1,8 +1,8 @@
 [phases.setup]
-nixPkgs = ["dotnet-sdk_9", "dotnet-runtime_9"]
+nixPkgs = ["dotnet-sdk_9"]
 
 [phases.build]
-cmds = ["dotnet restore", "dotnet publish -c Release -o out"]
+cmds = ["dotnet restore", "dotnet publish -c Release -r linux-x64 --self-contained true -o out"]
 
 [start]
-cmd = "dotnet out/DocumentManagerApi.dll"
+cmd = "out/DocumentManagerApi"
