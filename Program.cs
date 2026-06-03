@@ -180,4 +180,5 @@ app.MapDelete("/documents/{id}", async (int id, DocumentDbContext db, R2Service 
     return Results.NoContent();
 });
 
-app.Run();
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Run($"http://0.0.0.0:{port}");
