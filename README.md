@@ -3,6 +3,8 @@
 A RESTful API built with C# and ASP.NET Core for managing document metadata.
 Demonstrates .NET minimal APIs, input validation with data annotations, and standard REST design.
 
+Connected to [DocumentDashboard](https://github.com/ckim53/DocumentDashboard).
+
 ## Run
 
 ```bash
