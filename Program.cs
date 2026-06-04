@@ -43,7 +43,8 @@ if (!string.IsNullOrEmpty(r2Endpoint))
     var s3Config = new AmazonS3Config
     {
         ServiceURL = r2Endpoint,
-        ForcePathStyle = true
+        ForcePathStyle = true,
+        AuthenticationRegion = "auto"
     };
 
     var s3Client = new AmazonS3Client(
